@@ -64,6 +64,8 @@
 //}
 //);
 
+		let mixer;
+		
 		const loader = new GLTFLoader();
 		loader.load(
 			'Untitled1.glb',
@@ -85,12 +87,16 @@
 			);
 
 // Animation loop
-		function animate() {
-			requestAnimationFrame(animate);
-			controls.update();
-			renderer.render(scene, camera);
-		}
-		animate();
+const clock = new THREE.Clock();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const delta = clock.getDelta();
+  if (mixer) mixer.update(delta);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
 
 // Handle window resize
 		window.addEventListener('resize', () => {
